@@ -1,0 +1,272 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .page { padding: 2rem 0; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 12px; }
+  .topbar-left { display: flex; flex-direction: column; gap: 4px; }
+  .topbar-title { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .topbar-sub { font-size: 14px; color: var(--color-text-secondary); }
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+  .filter-pill { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; border: 0.5px solid var(--color-border-secondary); font-size: 13px; color: var(--color-text-secondary); cursor: pointer; background: var(--color-background-primary); transition: background 0.15s; }
+  .filter-pill:hover, .filter-pill.active { background: var(--color-background-secondary); color: var(--color-text-primary); }
+  .filter-pill.active { border-color: var(--color-border-primary); }
+  .sort-select { padding: 6px 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); font-size: 13px; color: var(--color-text-secondary); background: var(--color-background-primary); cursor: pointer; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; cursor: pointer; transition: border-color 0.15s; }
+  .card:hover { border-color: var(--color-border-primary); }
+  .card-img { width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; font-size: 52px; }
+  .card-img.bg-purple { background: #EEEDFE; }
+  .card-img.bg-teal { background: #E1F5EE; }
+  .card-img.bg-amber { background: #FAEEDA; }
+  .card-img.bg-blue { background: #E6F1FB; }
+  .card-img.bg-coral { background: #FAECE7; }
+  .card-img.bg-green { background: #EAF3DE; }
+  .card-body { padding: 14px 16px; }
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .card-name { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+  .card-price { font-size: 15px; font-weight: 500; color: var(--color-text-primary); white-space: nowrap; }
+  .card-brand { font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 10px; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: var(--border-radius-md); font-size: 11px; }
+  .badge-purple { background: #EEEDFE; color: #3C3489; }
+  .badge-green { background: #EAF3DE; color: #27500A; }
+  .badge-amber { background: #FAEEDA; color: #633806; }
+  .stars { display: flex; align-items: center; gap: 4px; margin: 10px 0 8px; }
+  .star-row { display: flex; gap: 2px; }
+  .star { color: #EF9F27; font-size: 14px; }
+  .star.empty { color: var(--color-border-secondary); }
+  .rating-text { font-size: 13px; color: var(--color-text-secondary); }
+  .divider { height: 0.5px; background: var(--color-border-tertiary); margin: 10px 0; }
+  .summary-label { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: none; letter-spacing: 0.02em; margin-bottom: 6px; }
+  .summary-label i { font-size: 13px; color: #7F77DD; }
+  .summary-text { font-size: 12.5px; color: var(--color-text-secondary); line-height: 1.55; }
+  .pros-cons { display: flex; gap: 8px; margin-top: 10px; }
+  .pro-item, .con-item { display: flex; align-items: center; gap: 4px; font-size: 11.5px; }
+  .pro-item { color: #3B6D11; }
+  .con-item { color: #993C1D; }
+  .pro-item i, .con-item i { font-size: 12px; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); font-size: 13px; color: var(--color-text-primary); cursor: pointer; transition: background 0.15s; }
+  .btn-primary:hover { background: var(--color-background-secondary); }
+  .review-count { font-size: 12px; color: var(--color-text-tertiary); }
+  .no-reviews { font-size: 12px; color: var(--color-text-tertiary); font-style: italic; padding: 6px 0 2px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 2px; }
+</style>
+
+<div class="page">
+  <h2 class="sr-only">Electronics product listing with AI-powered review summaries</h2>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-title">Electronic gadgets</div>
+      <div class="topbar-sub">6 products · AI review summaries</div>
+    </div>
+    <div class="topbar-right">
+      <div class="filter-pill active"><i class="ti ti-layout-grid" aria-hidden="true"></i> All</div>
+      <div class="filter-pill"><i class="ti ti-headphones" aria-hidden="true"></i> Audio</div>
+      <div class="filter-pill"><i class="ti ti-device-watch" aria-hidden="true"></i> Wearables</div>
+      <div class="filter-pill"><i class="ti ti-device-gamepad-2" aria-hidden="true"></i> Gaming</div>
+      <select class="sort-select" aria-label="Sort by">
+        <option>Top rated</option>
+        <option>Price: low to high</option>
+        <option>Most reviewed</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-img bg-purple">🎧</div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-name">Sony WH-1000XM5</div>
+          <div class="card-price">$349</div>
+        </div>
+        <div class="card-brand">Sony · Noise-cancelling headphones</div>
+        <div class="tag-row">
+          <span class="badge badge-purple"><i class="ti ti-sparkles" aria-hidden="true"></i> Best seller</span>
+          <span class="badge badge-green">In stock</span>
+        </div>
+        <div class="stars">
+          <div class="star-row" aria-label="4.8 out of 5 stars">
+            <i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-half-filled star"></i>
+          </div>
+          <span class="rating-text">4.8 · 2,341 reviews</span>
+        </div>
+        <div class="divider"></div>
+        <div class="summary-label"><i class="ti ti-sparkles" aria-hidden="true"></i> AI review summary</div>
+        <div class="summary-text">Reviewers consistently praise the class-leading noise cancellation and comfort on long flights. Battery life exceeds expectations. A few note that the touch controls have a slight learning curve.</div>
+        <div class="pros-cons">
+          <div class="pro-item"><i class="ti ti-circle-check" aria-hidden="true"></i> 30hr battery</div>
+          <div class="con-item"><i class="ti ti-circle-minus" aria-hidden="true"></i> Pricey</div>
+        </div>
+        <div class="card-footer">
+          <span class="review-count"><i class="ti ti-message" aria-hidden="true" style="font-size:12px; vertical-align:-1px"></i> 2,341 reviews</span>
+          <button class="btn-primary" onclick="sendPrompt('Show me detailed reviews for Sony WH-1000XM5')">View reviews ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img bg-teal">⌚</div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-name">Apple Watch Ultra 2</div>
+          <div class="card-price">$799</div>
+        </div>
+        <div class="card-brand">Apple · Smartwatch</div>
+        <div class="tag-row">
+          <span class="badge badge-amber"><i class="ti ti-flame" aria-hidden="true"></i> Trending</span>
+          <span class="badge badge-green">In stock</span>
+        </div>
+        <div class="stars">
+          <div class="star-row" aria-label="4.7 out of 5 stars">
+            <i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-half-filled star"></i>
+          </div>
+          <span class="rating-text">4.7 · 1,890 reviews</span>
+        </div>
+        <div class="divider"></div>
+        <div class="summary-label"><i class="ti ti-sparkles" aria-hidden="true"></i> AI review summary</div>
+        <div class="summary-text">Buyers love the rugged titanium build and the brightest display on any smartwatch. Athletes highlight the precise GPS and 60-hour battery in low-power mode. Some find the size too large for everyday wear.</div>
+        <div class="pros-cons">
+          <div class="pro-item"><i class="ti ti-circle-check" aria-hidden="true"></i> Rugged build</div>
+          <div class="con-item"><i class="ti ti-circle-minus" aria-hidden="true"></i> Very large</div>
+        </div>
+        <div class="card-footer">
+          <span class="review-count"><i class="ti ti-message" aria-hidden="true" style="font-size:12px; vertical-align:-1px"></i> 1,890 reviews</span>
+          <button class="btn-primary" onclick="sendPrompt('Show me detailed reviews for Apple Watch Ultra 2')">View reviews ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img bg-amber">⌨️</div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-name">Keychron Q1 Pro</div>
+          <div class="card-price">$199</div>
+        </div>
+        <div class="card-brand">Keychron · Gaming keyboard</div>
+        <div class="tag-row">
+          <span class="badge badge-purple"><i class="ti ti-award" aria-hidden="true"></i> Editor's pick</span>
+          <span class="badge badge-green">In stock</span>
+        </div>
+        <div class="stars">
+          <div class="star-row" aria-label="4.6 out of 5 stars">
+            <i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-half-filled star"></i>
+          </div>
+          <span class="rating-text">4.6 · 978 reviews</span>
+        </div>
+        <div class="divider"></div>
+        <div class="summary-label"><i class="ti ti-sparkles" aria-hidden="true"></i> AI review summary</div>
+        <div class="summary-text">Mechanical keyboard enthusiasts rate the gasket-mount construction and satisfying thock sound highly. Wireless reliability is described as flawless. A small number mention the software configurator could be more polished.</div>
+        <div class="pros-cons">
+          <div class="pro-item"><i class="ti ti-circle-check" aria-hidden="true"></i> Premium feel</div>
+          <div class="con-item"><i class="ti ti-circle-minus" aria-hidden="true"></i> Basic software</div>
+        </div>
+        <div class="card-footer">
+          <span class="review-count"><i class="ti ti-message" aria-hidden="true" style="font-size:12px; vertical-align:-1px"></i> 978 reviews</span>
+          <button class="btn-primary" onclick="sendPrompt('Show me detailed reviews for Keychron Q1 Pro')">View reviews ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img bg-blue">📷</div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-name">GoPro Hero 12</div>
+          <div class="card-price">$399</div>
+        </div>
+        <div class="card-brand">GoPro · Action camera</div>
+        <div class="tag-row">
+          <span class="badge badge-green"><i class="ti ti-check" aria-hidden="true"></i> New arrival</span>
+          <span class="badge badge-amber">Low stock</span>
+        </div>
+        <div class="stars">
+          <div class="star-row" aria-label="4.4 out of 5 stars">
+            <i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star star empty"></i>
+          </div>
+          <span class="rating-text">4.4 · 543 reviews</span>
+        </div>
+        <div class="divider"></div>
+        <div class="summary-label"><i class="ti ti-sparkles" aria-hidden="true"></i> AI review summary</div>
+        <div class="summary-text">Customers are impressed by the 5.3K video stabilisation and the improved low-light performance. The HyperSmooth 6.0 feature is frequently highlighted. Some note shorter battery life during 4K recording sessions.</div>
+        <div class="pros-cons">
+          <div class="pro-item"><i class="ti ti-circle-check" aria-hidden="true"></i> Best stabilisation</div>
+          <div class="con-item"><i class="ti ti-circle-minus" aria-hidden="true"></i> Battery drain</div>
+        </div>
+        <div class="card-footer">
+          <span class="review-count"><i class="ti ti-message" aria-hidden="true" style="font-size:12px; vertical-align:-1px"></i> 543 reviews</span>
+          <button class="btn-primary" onclick="sendPrompt('Show me detailed reviews for GoPro Hero 12')">View reviews ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img bg-coral">🎮</div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-name">Razer DeathAdder V3</div>
+          <div class="card-price">$89</div>
+        </div>
+        <div class="card-brand">Razer · Gaming mouse</div>
+        <div class="tag-row">
+          <span class="badge badge-purple"><i class="ti ti-sparkles" aria-hidden="true"></i> Best seller</span>
+          <span class="badge badge-green">In stock</span>
+        </div>
+        <div class="stars">
+          <div class="star-row" aria-label="4.5 out of 5 stars">
+            <i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-half-filled star"></i>
+          </div>
+          <span class="rating-text">4.5 · 1,204 reviews</span>
+        </div>
+        <div class="divider"></div>
+        <div class="summary-label"><i class="ti ti-sparkles" aria-hidden="true"></i> AI review summary</div>
+        <div class="summary-text">Gamers overwhelmingly praise the ultra-light 59g weight and the Focus Pro sensor's pixel-perfect tracking. The ergonomic shape is described as a hand-feel upgrade. Left-handed users note it's right-hand only.</div>
+        <div class="pros-cons">
+          <div class="pro-item"><i class="ti ti-circle-check" aria-hidden="true"></i> Ultra-lightweight</div>
+          <div class="con-item"><i class="ti ti-circle-minus" aria-hidden="true"></i> Right-hand only</div>
+        </div>
+        <div class="card-footer">
+          <span class="review-count"><i class="ti ti-message" aria-hidden="true" style="font-size:12px; vertical-align:-1px"></i> 1,204 reviews</span>
+          <button class="btn-primary" onclick="sendPrompt('Show me detailed reviews for Razer DeathAdder V3')">View reviews ↗</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img bg-green">🔊</div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-name">Sonos Era 100</div>
+          <div class="card-price">$249</div>
+        </div>
+        <div class="card-brand">Sonos · Smart speaker</div>
+        <div class="tag-row">
+          <span class="badge badge-amber"><i class="ti ti-flame" aria-hidden="true"></i> Popular</span>
+          <span class="badge badge-green">In stock</span>
+        </div>
+        <div class="stars">
+          <div class="star-row" aria-label="4.3 out of 5 stars">
+            <i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star-filled star"></i><i class="ti ti-star star empty"></i>
+          </div>
+          <span class="rating-text">4.3 · 712 reviews</span>
+        </div>
+        <div class="divider"></div>
+        <div class="summary-label"><i class="ti ti-sparkles" aria-hidden="true"></i> AI review summary</div>
+        <div class="summary-text">Owners rave about the rich, room-filling stereo sound from a compact form factor. Multi-room pairing with other Sonos devices is described as seamless. A few reviewers mention the app requires a login to set up.</div>
+        <div class="pros-cons">
+          <div class="pro-item"><i class="ti ti-circle-check" aria-hidden="true"></i> Rich stereo sound</div>
+          <div class="con-item"><i class="ti ti-circle-minus" aria-hidden="true"></i> App-dependent</div>
+        </div>
+        <div class="card-footer">
+          <span class="review-count"><i class="ti ti-message" aria-hidden="true" style="font-size:12px; vertical-align:-1px"></i> 712 reviews</span>
+          <button class="btn-primary" onclick="sendPrompt('Show me detailed reviews for Sonos Era 100')">View reviews ↗</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
