@@ -1,4 +1,4 @@
-import StarRating from "../reviews/StarRating";
+import StarRating from '../reviews/StarRating';
 
 type Props = {
   name: string;

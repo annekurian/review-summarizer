@@ -1,15 +1,15 @@
-import ReviewList from "../reviews/ReviewList";
-import ProductCard from "./ProductCard";
-import { useParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { productsAPI, type Product } from "./productsAPI";
+import ReviewList from '../reviews/ReviewList';
+import ProductCard from './ProductCard';
+import { useParams } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+import { productsAPI, type Product } from './productsAPI';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const productId = Number(id) | 0;
 
   const productQuery = useQuery<Product>({
-    queryKey: ["product", productId],
+    queryKey: ['product', productId],
     queryFn: () => productsAPI.fetchProduct(productId),
   });
 

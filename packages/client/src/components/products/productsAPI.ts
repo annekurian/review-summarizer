@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export type Product = {
   id: number;
@@ -20,7 +20,7 @@ export const productsAPI = {
   },
   async fetchProducts(limit: number) {
     return axios
-      .get<ProductResponse>("/api/products", { params: { limit } })
+      .get<ProductResponse>('/api/products', { params: { limit } })
       .then((res) => res.data);
   },
 };

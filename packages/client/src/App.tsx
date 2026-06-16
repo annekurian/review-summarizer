@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router";
-import NavBar from "./components/NavBar";
-import ChatBot from "./components/chat/ChatBot";
-import Products from "./components/Products";
+import { Route, Routes } from 'react-router';
+import NavBar from './components/NavBar';
+import ChatBot from './components/chat/ChatBot';
+import Products from './components/Products';
 
 function App() {
   return (

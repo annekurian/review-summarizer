@@ -1,5 +1,5 @@
-import { PrismaClient, type Product } from "../generated/prisma/client";
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { PrismaClient, type Product } from '../generated/prisma/client';
+import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
 const adapter = new PrismaMariaDb({
   host: process.env.DATABASE_HOST,

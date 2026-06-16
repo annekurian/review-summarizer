@@ -1,7 +1,7 @@
-import { Link } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { productsAPI, type Product, type ProductResponse } from "./productsAPI";
-import ProductCard from "./ProductCard";
+import { Link } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+import { productsAPI, type Product, type ProductResponse } from './productsAPI';
+import ProductCard from './ProductCard';
 
 type Props = {
   limit?: number;
@@ -9,7 +9,7 @@ type Props = {
 
 const Products = ({ limit = 10 }: Props) => {
   const productsQuery = useQuery<ProductResponse>({
-    queryKey: ["products", limit],
+    queryKey: ['products', limit],
     queryFn: () => productsAPI.fetchProducts(limit),
   });
 
