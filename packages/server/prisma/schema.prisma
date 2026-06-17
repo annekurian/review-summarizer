@@ -19,7 +19,9 @@ model Product {
   description String? @db.Text
   price Float
   brand String @db.VarChar(255)
-  rating Decimal @db.Decimal(3,1) 
+  rating Decimal @db.Decimal(3,1)
+  imagePath String @db.VarChar(255) @default("/src/assets/headphones.jpg")
+  imageAlt String @db.VarChar(255) @default("Photo by xxx on Unsplash")
   reviews Review[]
   summary Summary?
 }

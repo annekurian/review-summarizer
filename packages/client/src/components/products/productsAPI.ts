@@ -6,6 +6,9 @@ export type Product = {
   brand: string;
   price: number;
   rating: number;
+  imagePath: string;
+  imageAlt: string;
+  description: string;
 };
 
 export type ProductResponse = {

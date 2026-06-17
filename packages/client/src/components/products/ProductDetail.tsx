@@ -1,6 +1,6 @@
 import ReviewList from '../reviews/ReviewList';
 import ProductCard from './ProductCard';
-import { useParams } from 'react-router';
+import { NavLink, useParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { productsAPI, type Product } from './productsAPI';
 
@@ -16,19 +16,34 @@ const ProductDetail = () => {
   if (productQuery.isError || !productQuery.data?.product) {
     return <p className="text-red-500">Could not fetch products. Try again!</p>;
   }
-  console.log(`Product: ${JSON.stringify(productQuery)}`);
-  const { name, brand, price, rating } = productQuery.data.product;
+
+  const {
+    name,
+    brand,
+    price,
+    rating,
+    imagePath,
+    imageAlt = '',
+    description,
+  } = productQuery.data.product;
 
   return (
     <div>
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-4">
         <ProductCard
-          key={productId}
           name={name}
           brand={brand}
           price={price}
           rating={rating}
+          imagePath={`../src/assets/${imagePath}`}
+          imageAlt={imageAlt}
+          description={description}
         />
+        <div className="col-start-4">
+          <NavLink to="/products" style={{ color: 'blue' }}>
+            Back to Products
+          </NavLink>
+        </div>
       </div>
       <div className="border-t-2 pt-5 mt-5">
         {productId != 0 && <ReviewList productId={productId} />}

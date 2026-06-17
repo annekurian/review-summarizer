@@ -13,6 +13,10 @@ const Products = ({ limit = 10 }: Props) => {
     queryFn: () => productsAPI.fetchProducts(limit),
   });
 
+  if (productsQuery.isLoading) {
+    return <p className="text-gray-500">Loading products...</p>;
+  }
+
   if (productsQuery.isError) {
     return <p className="text-red-500">Could not fetch products. Try again!</p>;
   }
@@ -21,20 +25,21 @@ const Products = ({ limit = 10 }: Props) => {
     return <p className="text-gray-500">No products available. Try again!</p>;
   }
   const { products } = productsQuery.data;
-  // console.log(`Products Query: ${products[0].rating}`);
+  console.log(`Products Query: ${JSON.stringify(products)}`);
   return (
     <div>
       <div className="mb-5">
         <div className="font-bold text-2xl mb-3">Products</div>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product: Product) => (
-            <Link to={`/products/${product.id}`}>
+            <Link to={`/products/${product.id}`} key={product.id}>
               <ProductCard
-                key={product.id}
                 name={product.name}
                 brand={product.brand}
                 price={product.price}
                 rating={product.rating}
+                imagePath={`src/assets/${product.imagePath}`}
+                imageAlt={product.imageAlt}
               />
             </Link>
           ))}
