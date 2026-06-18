@@ -2,6 +2,7 @@
   "name": "review-summarizer",
   "module": "index.ts",
   "devDependencies": {
+    "@happy-dom/global-registrator": "^20.10.5",
     "@types/bun": "latest",
     "concurrently": "^9.2.1",
     "husky": "^9.1.7",
