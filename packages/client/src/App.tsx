@@ -6,7 +6,6 @@ function App() {
   return (
     <div className="p-4 h-screen w-full">
       <div className="flex flex-row h-full">
-        {/* <NavBar /> */}
         <div className="flex flex-col w-4/5 p-5">
           <Routes>
             <Route path="/products/:id" element={<ProductDetail />} />
