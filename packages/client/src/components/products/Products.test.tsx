@@ -251,21 +251,6 @@ describe('Products', () => {
       }
     });
 
-    // test('renders the rating of every fetched product', async () => {
-    //   const products = [
-    //     makeProduct({
-    //       id: 1,
-    //       rating: 4,
-    //     }),
-    //   ];
-    //   fetchProductsSpy.mockResolvedValue({ products });
-
-    //   renderProducts();
-
-    //   const icons = await screen.findAllByRole('FaRegStar');
-    //   expect(icons).toHaveLength(4);
-    // });
-
     test('links each product card to its own product detail page', async () => {
       const products = [makeProduct({ id: 42, name: 'Wireless Earbuds' })];
       fetchProductsSpy.mockResolvedValue({ products });
