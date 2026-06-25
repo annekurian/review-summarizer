@@ -13,10 +13,16 @@ const ProductDetail = () => {
     queryFn: () => productsAPI.fetchProduct(productId),
   });
 
-  if (productQuery.isError || !productQuery.data?.product) {
+  if (productQuery.isLoading) {
+    return <p className="text-gray-500">Loading products...</p>;
+  }
+  if (productQuery.isError) {
     return <p className="text-red-500">Could not fetch products. Try again!</p>;
   }
-
+  if (!productQuery.data) {
+    return <p className="text-gray-500">No products available. Try again!</p>;
+  }
+  console.log(`Products Query: ${JSON.stringify(productQuery.data)}`);
   const {
     name,
     brand,

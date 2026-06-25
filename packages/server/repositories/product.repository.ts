@@ -11,7 +11,7 @@ const adapter = new PrismaMariaDb({
 const prisma = new PrismaClient({ adapter });
 
 export const productRepository = {
-  getProduct(productId: number) {
+  getProduct(productId: number): Promise<Product | null> {
     return prisma.product.findUnique({
       where: { id: productId },
     });
