@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export type Product = {
+export type ProductInfo = {
   id: number;
   name: string;
   brand: string;
@@ -11,8 +11,12 @@ export type Product = {
   description: string;
 };
 
+export type Product = {
+  product: ProductInfo;
+};
+
 export type ProductResponse = {
-  products: Product[];
+  products: ProductInfo[];
 };
 
 export const productsAPI = {

@@ -1,6 +1,10 @@
 import { Link } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-import { productsAPI, type Product, type ProductResponse } from './productsAPI';
+import {
+  productsAPI,
+  type ProductInfo,
+  type ProductResponse,
+} from './productsAPI';
 import ProductCard from './ProductCard';
 
 type Props = {
@@ -31,7 +35,7 @@ const Products = ({ limit = 10 }: Props) => {
       <div className="mb-5">
         <div className="font-bold text-2xl mb-3">Products</div>
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products.map((product: Product) => (
+          {products.map((product: ProductInfo) => (
             <Link to={`/products/${product.id}`} key={product.id}>
               <ProductCard
                 name={product.name}
