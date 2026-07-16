@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "build": "bunx prisma generate",
     "start": "bun run index.ts",
     "dev": "bun --watch run index.ts"
   },
