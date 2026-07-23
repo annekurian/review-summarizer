@@ -1,11 +1,9 @@
-FROM oven/bun:1.3.14-alpine
+FROM oven/bun:1.3.14-slim
 WORKDIR /app
-RUN addgroup app && adduser -S -G app app
+RUN addgroup --system app && adduser --system --ingroup app app
 
 COPY . .
-
 RUN chown -R app:app /app
-
 USER app
 
 RUN bun install --frozen-lockfile --production --ignore-scripts
