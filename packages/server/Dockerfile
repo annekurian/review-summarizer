@@ -5,14 +5,11 @@ RUN groupadd -r app && useradd -r -g app app
 COPY . .
 
 RUN find /app -name schema.prisma
-RUN ls -R /app/packages/server
 
 RUN chown -R app:app /app
 USER app
 
 RUN bun install --frozen-lockfile --production --ignore-scripts
-
-RUN ls -R /app/packages/server
 
 RUN DATABASE_URL="mysql://placeholder:placeholder@localhost:3306/placeholder" \
     bunx prisma generate --schema=./prisma/schema.prisma
