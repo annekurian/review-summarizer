@@ -3,6 +3,10 @@ WORKDIR /app
 RUN groupadd -r app && useradd -r -g app app
 
 COPY . .
+
+RUN find /app -name schema.prisma
+RUN ls -R /app/packages/server
+
 RUN chown -R app:app /app
 USER app
 
