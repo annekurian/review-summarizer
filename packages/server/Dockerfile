@@ -12,7 +12,7 @@ USER app
 
 RUN bun install --frozen-lockfile --production --ignore-scripts
 
-WORKDIR /app/packages/server
+RUN ls -R /app/packages/server
 
 RUN DATABASE_URL="mysql://placeholder:placeholder@localhost:3306/placeholder" \
     bunx prisma generate --schema=./prisma/schema.prisma
