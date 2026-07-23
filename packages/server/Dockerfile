@@ -1,6 +1,6 @@
 FROM oven/bun:1.3.14-slim
 WORKDIR /app
-RUN addgroup --system app && adduser --system --ingroup app app
+RUN groupadd -r app && useradd -r -g app app
 
 COPY . .
 RUN chown -R app:app /app
