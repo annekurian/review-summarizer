@@ -8,7 +8,7 @@ RUN chown -R app:app /app
 
 USER app
 
-RUN bun install --frozen-lockfile --omit=dev --ignore-scripts
+RUN bun install --frozen-lockfile --production --ignore-scripts
 
 WORKDIR /app/packages/server
 
