@@ -41,7 +41,7 @@ const ProductDetail = () => {
           brand={brand}
           price={price}
           rating={rating}
-          imagePath={`../src/assets/${imagePath}`}
+          imagePath={`../assets/${imagePath}`}
           imageAlt={imageAlt}
           description={description}
         />

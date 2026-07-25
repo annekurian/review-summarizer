@@ -41,7 +41,7 @@ const Products = ({ limit = 10 }: Props) => {
                 brand={product.brand}
                 price={product.price}
                 rating={product.rating}
-                imagePath={`src/assets/${product.imagePath}`}
+                imagePath={`assets/${product.imagePath}`}
                 imageAlt={product.imageAlt}
               />
             </Link>
