@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
+
 export type ProductInfo = {
   id: number;
   name: string;
@@ -22,12 +24,12 @@ export type ProductResponse = {
 export const productsAPI = {
   async fetchProduct(productId: number) {
     return axios
-      .get<Product>(`/api/products/${productId}`)
+      .get<Product>(`${BASE_URL}/api/products/${productId}`)
       .then((res) => res.data);
   },
   async fetchProducts(limit: number) {
     return axios
-      .get<ProductResponse>('/api/products', { params: { limit } })
+      .get<ProductResponse>(`${BASE_URL}/api/products`, { params: { limit } })
       .then((res) => res.data);
   },
 };
