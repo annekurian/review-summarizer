@@ -8,15 +8,15 @@ router.get('/', (req: Request, res: Response) => {
   res.send('Hello World');
 });
 
-router.get('/api/hello', (req: Request, res: Response) => {
+router.get('/hello', (req: Request, res: Response) => {
   res.json({ message: 'Hello World!!' });
 });
 
-router.get('/api/products', productController.getProducts);
-router.get('/api/products/:id', productController.getProduct);
-router.get('/api/products/:id/reviews', reviewController.getReviews);
+router.get('/products', productController.getProducts);
+router.get('/products/:id', productController.getProduct);
+router.get('/products/:id/reviews', reviewController.getReviews);
 router.post(
-  '/api/products/:id/reviews/summarize',
+  '/products/:id/reviews/summarize',
   reviewController.summarizeReviews
 );
 
