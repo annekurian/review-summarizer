@@ -2,11 +2,14 @@ import dayjs from 'dayjs';
 import { PrismaClient, type Review } from '../generated/prisma/client';
 import { PrismaMariaDb } from '@prisma/adapter-mariadb';
 
+const url = new URL(process.env.DATABASE_URL!);
+
 const adapter = new PrismaMariaDb({
-  host: process.env.DATABASE_HOST,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_NAME,
+  host: url.hostname,
+  port: Number(url.port) || 3306,
+  user: url.username,
+  password: url.password,
+  database: url.pathname.replace('/', ''),
   connectionLimit: 5,
 });
 const prisma = new PrismaClient({ adapter });
