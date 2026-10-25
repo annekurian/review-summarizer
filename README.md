@@ -6,6 +6,8 @@ A full-stack TypeScript monorepo built with **Bun** :
 
 > Built as a prototype project based on the _"Build AI-powered Apps"_ course by Mosh Hamedani.
 
+Live Demo: [Product review summarizer](https://review-summarizer-client.vercel.app/)
+
 ---
 
 ## ✨ Features
